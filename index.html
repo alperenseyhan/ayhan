@@ -158,25 +158,29 @@ document.getElementById("form").addEventListener("submit", function(e) {
                 videoId: "7CoP2F01FLA",
                 playerVars: {
                     autoplay: 1,
-                    start: 0,
                     mute: 0,
                     playsinline: 1
                 },
                 events: {
                     onReady: (event) => {
-                        event.target.playVideo();
+    event.target.playVideo();
 
-                        // ⏱️ 8. SANİYEDE NET DUR
-                        setTimeout(() => {
-                            event.target.pauseVideo();
-                            document.getElementById("video").style.display = "none";
+    // ✅ 2. saniyeye NET atla
+    setTimeout(() => {
+        event.target.seekTo(2, true);
+    }, 300);
 
-                            mesaj.innerText =
-                            "şu ana kadar her şey yolunda, güzel şeyler zaman alır, almalı. en doğru zamanda görüşmeye ne dersin?";
-                            mesaj.style.color = "#5A7D6C";
-                            mesaj.style.fontSize = "18px";
-                        }, 8000);
-                    }
+    // ⏱️ 8. saniyede durdur (2 → 8 = 6 sn)
+    setTimeout(() => {
+        event.target.pauseVideo();
+        document.getElementById("video").style.display = "none";
+
+        mesaj.innerText =
+        "şu ana kadar her şey yolunda, güzel şeyler zaman alır, almalı. en doğru zamanda görüşmeye ne dersin?";
+        mesaj.style.color = "#5A7D6C";
+        mesaj.style.fontSize = "18px";
+    }, 6000);
+}
                 }
             });
 
