@@ -76,20 +76,15 @@
     <form id="form">
 
         <label>
-            <input type="radio" name="entry.823915493" value="32" required>
+            <input type="radio" name="entry.433664903" value="Evet" required>
             32
         </label>
 
         <label>
-            <input type="radio" name="entry.823915493" value="23">
+            <input type="radio" name="entry.433664903" value="HAYIR">
             23
         </label>
-
-        <label>
-            <input type="radio" name="entry.823915493" value="Ahmet'in amına koyum">
-            Ahmet'in amına koyum
-        </label>
-
+        
         <button type="submit">Gönder</button>
     </form>
 
@@ -104,7 +99,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
     const data = new FormData(this);
 
     fetch(
-        "https://docs.google.com/forms/d/e/1FAIpQLScwznTCcZdETZEnfWTK2aw3sDZnsIjWQA-OxMPUiPTOj5T3-A/formResponse",
+        "https://docs.google.com/forms/d/e/1FAIpQLSfveNdXrEfTxE4wkjd7GZB8Cg9YhOdtKhEEMKhjAJEg2pF1VQ/formResponse",
         {
             method: "POST",
             mode: "no-cors",
