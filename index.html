@@ -122,6 +122,8 @@ document.getElementById("form").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const form = this;
+    form.style.display = "none";
+    
     const data = new FormData(form);
     const cevap = data.get("entry.433664903");
 
