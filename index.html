@@ -92,8 +92,8 @@
         </label>
 
         <label>
-            <input type="radio" name="entry.433664903" value="Hayır">
-            Hayır
+            <input type="radio" name="entry.433664903" value="HAYIR">
+            HAYIR
         </label>
 
         <button type="submit">Gönder</button>
@@ -101,10 +101,8 @@
 
     <p id="mesaj"></p>
 
-    <!-- YouTube Video -->
     <iframe
         id="video"
-        src=""
         allow="autoplay; encrypted-media"
         allowfullscreen>
     </iframe>
@@ -119,7 +117,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
     const data = new FormData(form);
     const cevap = data.get("entry.433664903");
 
-    // 🔒 1️⃣ ÖNCE GOOGLE'A GÖNDER (GARANTİ)
+    // ✅ Google Forms gönderimi
     fetch(
         "https://docs.google.com/forms/d/e/1FAIpQLSfveNdXrEfTxE4wkjd7GZB8Cg9YhOdtKhEEMKhjAJEg2pF1VQ/formResponse",
         {
@@ -136,29 +134,21 @@ document.getElementById("form").addEventListener("submit", function(e) {
     video.style.display = "none";
     video.src = "";
 
-    // 🎭 2️⃣ SONRA KULLANICIYA TEPKİ
     if (cevap === "Evet") {
         mesaj.innerText = "Kusura bakma 😔";
         mesaj.style.color = "red";
     }
 
-    if (cevap === "Hayır") {
-        mesaj.innerText = "Bir şey göstereceğim 😏";
+    if (cevap === "HAYIR") {
+        mesaj.innerText = "Evet... İstediğimiz noktaya geldik 🌹";
         mesaj.style.color = "green";
 
-        // ⚠️ mute=0 (bazı mobilde çalışmayabilir)
+        // 🎬 1–9 sn | otomatik başlar | ses açık
         video.src =
-            "https://www.youtube.com/embed/7CoP2F01FLA?start=2&autoplay=1&mute=0&enablejsapi=1";
+            "https://www.youtube.com/embed/7CoP2F01FLA?start=1&end=9&autoplay=1&mute=0&playsinline=1";
         video.style.display = "block";
-
-        // ⏱ 8. saniyede durdur
-        setTimeout(() => {
-            video.src = "";
-            video.style.display = "none";
-        }, 6000);
     }
 
-    // 🧹 EN SON reset
     setTimeout(() => {
         form.reset();
     }, 100);
