@@ -83,7 +83,7 @@
         }
     </style>
 
-    <!-- ✅ YOUTUBE API -->
+    <!-- ✅ YouTube API -->
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
@@ -112,12 +112,17 @@
 
     <button id="playBtn">Dokun 🔊</button>
 
-    <div id="video"></div>
+    <iframe id="video" allow="autoplay; encrypted-media" playsinline></iframe>
 
 </div>
 
 <script>
+let ytReady = false;
 let player;
+
+function onYouTubeIframeAPIReady() {
+    ytReady = true;
+}
 
 document.getElementById("form").addEventListener("submit", function(e) {
     e.preventDefault();
@@ -128,6 +133,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
     const data = new FormData(form);
     const cevap = data.get("entry.433664903");
 
+    // Google Forms gönderimi
     fetch(
         "https://docs.google.com/forms/d/e/1FAIpQLSfveNdXrEfTxE4wkjd7GZB8Cg9YhOdtKhEEMKhjAJEg2pF1VQ/formResponse",
         {
@@ -138,13 +144,43 @@ document.getElementById("form").addEventListener("submit", function(e) {
     );
 
     const mesaj = document.getElementById("mesaj");
+    const video = document.getElementById("video");
     const playBtn = document.getElementById("playBtn");
 
+    mesaj.innerText = "";
+    video.style.display = "none";
+    playBtn.style.display = "none";
+
+    // 🔹 EVET → TAM VİDEO (BUTONLU)
     if (cevap === "evet") {
         mesaj.innerText = "Kusura bakma 😔";
         mesaj.style.color = "#5A7D6C";
+
+        playBtn.style.display = "block";
+
+        playBtn.onclick = () => {
+            if (!ytReady) return;
+
+            playBtn.style.display = "none";
+            video.style.display = "block";
+
+            player = new YT.Player("video", {
+                videoId: "hdotxnFnBGw",
+                playerVars: {
+                    autoplay: 1,
+                    mute: 0,
+                    playsinline: 1
+                },
+                events: {
+                    onReady: (event) => {
+                        event.target.playVideo();
+                    }
+                }
+            });
+        };
     }
 
+    // 🔹 HAYIR → 2–8 SN
     if (cevap === "umarım yoktur...") {
         mesaj.innerText = "evet... istediğimiz noktaya geldik 🌹";
         mesaj.style.color = "#5A7D6C";
@@ -152,7 +188,10 @@ document.getElementById("form").addEventListener("submit", function(e) {
         playBtn.style.display = "block";
 
         playBtn.onclick = () => {
+            if (!ytReady) return;
+
             playBtn.style.display = "none";
+            video.style.display = "block";
 
             player = new YT.Player("video", {
                 videoId: "7CoP2F01FLA",
@@ -163,28 +202,25 @@ document.getElementById("form").addEventListener("submit", function(e) {
                 },
                 events: {
                     onReady: (event) => {
-    event.target.playVideo();
+                        event.target.playVideo();
 
-    // ✅ 2. saniyeye NET atla
-    setTimeout(() => {
-        event.target.seekTo(2, true);
-    }, 300);
+                        // 🎯 2. saniyeye net atla
+                        setTimeout(() => {
+                            event.target.seekTo(2, true);
+                        }, 300);
 
-    // ⏱️ 8. saniyede durdur (2 → 8 = 6 sn)
-    setTimeout(() => {
-        event.target.pauseVideo();
-        document.getElementById("video").style.display = "none";
+                        // ⏱️ 8. saniyede durdur
+                        setTimeout(() => {
+                            event.target.pauseVideo();
+                            video.style.display = "none";
 
-        mesaj.innerText =
-        "şu ana kadar her şey yolunda, güzel şeyler zaman alır, almalı. en doğru zamanda görüşmeye ne dersin?";
-        mesaj.style.color = "#5A7D6C";
-        mesaj.style.fontSize = "18px";
-    }, 6000);
-}
+                            mesaj.innerText =
+                                "şu ana kadar her şey yolunda, güzel şeyler zaman alır, almalı. en doğru zamanda görüşmeye ne dersin?";
+                            mesaj.style.fontSize = "18px";
+                        }, 6000);
+                    }
                 }
             });
-
-            document.getElementById("video").style.display = "block";
         };
     }
 });
