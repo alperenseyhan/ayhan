@@ -82,6 +82,9 @@
             border: none;
         }
     </style>
+
+    <!-- ✅ YOUTUBE API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
 
@@ -109,25 +112,22 @@
 
     <button id="playBtn">Dokun 🔊</button>
 
-    <iframe
-  id="video"
-  allow="autoplay; encrypted-media"
-  playsinline>
-    </iframe>
+    <div id="video"></div>
 
 </div>
 
 <script>
+let player;
+
 document.getElementById("form").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const form = this;
     form.style.display = "none";
-    
+
     const data = new FormData(form);
     const cevap = data.get("entry.433664903");
 
-    // ✅ Google Forms gönderimi
     fetch(
         "https://docs.google.com/forms/d/e/1FAIpQLSfveNdXrEfTxE4wkjd7GZB8Cg9YhOdtKhEEMKhjAJEg2pF1VQ/formResponse",
         {
@@ -138,13 +138,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
     );
 
     const mesaj = document.getElementById("mesaj");
-    const video = document.getElementById("video");
     const playBtn = document.getElementById("playBtn");
-
-    mesaj.innerText = "";
-    video.style.display = "none";
-    video.src = "";
-    playBtn.style.display = "none";
 
     if (cevap === "evet") {
         mesaj.innerText = "Kusura bakma 😔";
@@ -158,27 +152,37 @@ document.getElementById("form").addEventListener("submit", function(e) {
         playBtn.style.display = "block";
 
         playBtn.onclick = () => {
-    video.src = 
-    "https://www.youtube.com/embed/7CoP2F01FLA?start=0&end=8&autoplay=1&mute=0&playsinline=1";
-            video.muted = false;
-    video.style.display = "block";
-    playBtn.style.display = "none";
+            playBtn.style.display = "none";
 
-    // ⏱ Video bittikten sonra (6 sn)
-    setTimeout(() => {
-        video.style.display = "none";
-        video.src = "";
+            player = new YT.Player("video", {
+                videoId: "7CoP2F01FLA",
+                playerVars: {
+                    autoplay: 1,
+                    start: 0,
+                    mute: 0,
+                    playsinline: 1
+                },
+                events: {
+                    onReady: (event) => {
+                        event.target.playVideo();
 
-        mesaj.innerText = "şu ana kadar her şey yolunda, güzel şeyler zaman alır, almalı. en doğru zamanda görüşmeye ne dersin?";
-        mesaj.style.color = "#5A7D6C";
-        mesaj.style.fontSize = "18px";
-    }, 6000);
-};
+                        // ⏱️ 8. SANİYEDE NET DUR
+                        setTimeout(() => {
+                            event.target.pauseVideo();
+                            document.getElementById("video").style.display = "none";
+
+                            mesaj.innerText =
+                            "şu ana kadar her şey yolunda, güzel şeyler zaman alır, almalı. en doğru zamanda görüşmeye ne dersin?";
+                            mesaj.style.color = "#5A7D6C";
+                            mesaj.style.fontSize = "18px";
+                        }, 8000);
+                    }
+                }
+            });
+
+            document.getElementById("video").style.display = "block";
+        };
     }
-
-    setTimeout(() => {
-        form.reset();
-    }, 100);
 });
 </script>
 
