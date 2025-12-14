@@ -98,8 +98,8 @@
         </label>
 
         <label>
-            <input type="radio" name="entry.433664903" value="Hayır">
-            Hayır
+            <input type="radio" name="entry.433664903" value="HAYIR">
+            HAYIR
         </label>
 
         <button type="submit">Gönder</button>
@@ -107,7 +107,7 @@
 
     <p id="mesaj"></p>
 
-    <button id="playBtn">Videoyu Oynat 🔊</button>
+    <button id="playBtn">Dokun 🔊</button>
 
     <iframe
         id="video"
@@ -149,7 +149,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
         mesaj.style.color = "red";
     }
 
-    if (cevap === "Hayır") {
+    if (cevap === "HAYIR") {
         mesaj.innerText = "Evet... İstediğimiz noktaya geldik 🌹";
         mesaj.style.color = "green";
 
