@@ -2,14 +2,15 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAZURSUN</title>
 
     <style>
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            background-color: #c08081; /* gül kurusu */
+            min-height: 100vh;
+            background-color: #c08081;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,10 +19,10 @@
 
         .container {
             background-color: #ffffff;
-            padding: 30px 40px;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 400px;
+            padding: 24px;
+            border-radius: 14px;
+            width: 90%;
+            max-width: 380px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
         }
@@ -29,39 +30,50 @@
         .notice {
             font-size: 14px;
             color: #777;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         h2 {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            font-size: 20px;
         }
 
         label {
-            display: block;
-            text-align: left;
-            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
             cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="radio"] {
+            transform: scale(1.3);
         }
 
         button {
-            margin-top: 20px;
-            padding: 10px 20px;
+            margin-top: 18px;
+            padding: 12px;
+            width: 100%;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             background-color: #c08081;
             color: #fff;
             font-size: 16px;
             cursor: pointer;
         }
 
-        button:hover {
-            background-color: #a86667;
+        #mesaj {
+            margin-top: 16px;
+            font-weight: bold;
         }
 
-        #mesaj {
+        iframe {
             margin-top: 15px;
-            color: green;
-            font-weight: bold;
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            display: none;
         }
     </style>
 </head>
@@ -74,21 +86,28 @@
     <h2>Sevgilin var mı?</h2>
 
     <form id="form">
-
         <label>
             <input type="radio" name="entry.433664903" value="Evet" required>
             Evet
         </label>
 
         <label>
-            <input type="radio" name="entry.433664903" value="HAYIR">
-            HAYIR
+            <input type="radio" name="entry.433664903" value="Hayır">
+            Hayır
         </label>
-        
+
         <button type="submit">Gönder</button>
     </form>
 
     <p id="mesaj"></p>
+
+    <!-- YouTube Video -->
+    <iframe
+        id="video"
+        src=""
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+    </iframe>
 
 </div>
 
@@ -96,8 +115,11 @@
 document.getElementById("form").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const data = new FormData(this);
+    const form = this;
+    const data = new FormData(form);
+    const cevap = data.get("entry.433664903");
 
+    // Google Form'a gönder
     fetch(
         "https://docs.google.com/forms/d/e/1FAIpQLSfveNdXrEfTxE4wkjd7GZB8Cg9YhOdtKhEEMKhjAJEg2pF1VQ/formResponse",
         {
@@ -105,11 +127,38 @@ document.getElementById("form").addEventListener("submit", function(e) {
             mode: "no-cors",
             body: data
         }
-    ).then(() => {
-        document.getElementById("mesaj").innerText =
-            "Teşekkürler çok naziksin 🌹🇹🇷";
-        this.reset();
-    });
+    );
+
+    const mesaj = document.getElementById("mesaj");
+    const video = document.getElementById("video");
+
+    // Sıfırla
+    mesaj.innerText = "";
+    video.style.display = "none";
+    video.src = "";
+
+    if (cevap === "Evet") {
+        mesaj.innerText = "Kusura bakma 😔";
+        mesaj.style.color = "red";
+    }
+
+    if (cevap === "Hayır") {
+        mesaj.innerText = "Bir şey göstereceğim 😏";
+        mesaj.style.color = "green";
+
+        // YouTube embed (2. saniyede başla)
+        video.src =
+            "https://www.youtube.com/embed/7CoP2F01FLA?start=2&autoplay=1&mute=1&enablejsapi=1";
+        video.style.display = "block";
+
+        // 8. saniyede durdur
+        setTimeout(() => {
+            video.src = "";
+            video.style.display = "none";
+        }, 6000); // 2 → 8 = 6 saniye
+    }
+
+    form.reset();
 });
 </script>
 
