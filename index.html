@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Deneme</title>
+</head>
+<body>
+
+<h2>Ayhan gardaşımın yaşı kaç</h2>
+
+<form id="form">
+
+    <label>
+        <input type="radio" name="entry.823915493" value="32" required>
+        32
+    </label><br>
+
+    <label>
+        <input type="radio" name="entry.823915493" value="23">
+        23
+    </label><br>
+
+    <label>
+        <input type="radio" name="entry.823915493" value="Ahmet'in amına koyum">
+        Ahmet'in amına koyum
+    </label><br><br>
+
+    <button type="submit">Gönder</button>
+</form>
+
+<p id="mesaj"></p>
+
+<script>
+document.getElementById("form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const data = new FormData(this);
+
+    fetch(
+        "https://docs.google.com/forms/d/e/1FAIpQLScwznTCcZdETZEnfWTK2aw3sDZnsIjWQA-OxMPUiPTOj5T3-A/formResponse",
+        {
+            method: "POST",
+            mode: "no-cors",
+            body: data
+        }
+    ).then(() => {
+        document.getElementById("mesaj").innerText =
+            "Cevap kaydedildi ✔";
+        this.reset();
+    });
+});
+</script>
+
+</body>
+</html>
