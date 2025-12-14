@@ -93,13 +93,13 @@
 
     <form id="form">
         <label>
-            <input type="radio" name="entry.433664903" value="Evet" required>
-            Evet
+            <input type="radio" name="entry.433664903" value="evet" required>
+            evet
         </label>
 
         <label>
-            <input type="radio" name="entry.433664903" value="HAYIR">
-            HAYIR
+            <input type="radio" name="entry.433664903" value="umarım hayır...">
+            umarım hayır...
         </label>
 
         <button type="submit">Gönder</button>
@@ -146,12 +146,12 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
     if (cevap === "Evet") {
         mesaj.innerText = "Kusura bakma 😔";
-        mesaj.style.color = "red";
+        mesaj.style.color = "#644341";
     }
 
     if (cevap === "HAYIR") {
         mesaj.innerText = "evet... istediğimiz noktaya geldik 🌹";
-        mesaj.style.color = "green";
+        mesaj.style.color = "#644341";
 
         playBtn.style.display = "block";
 
