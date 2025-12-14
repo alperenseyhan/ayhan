@@ -119,7 +119,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
     const data = new FormData(form);
     const cevap = data.get("entry.433664903");
 
-    // Google Form'a gönder
+    // 🔒 1️⃣ ÖNCE GOOGLE'A GÖNDER (GARANTİ)
     fetch(
         "https://docs.google.com/forms/d/e/1FAIpQLSfveNdXrEfTxE4wkjd7GZB8Cg9YhOdtKhEEMKhjAJEg2pF1VQ/formResponse",
         {
@@ -132,33 +132,36 @@ document.getElementById("form").addEventListener("submit", function(e) {
     const mesaj = document.getElementById("mesaj");
     const video = document.getElementById("video");
 
-    // Sıfırla
     mesaj.innerText = "";
     video.style.display = "none";
     video.src = "";
 
+    // 🎭 2️⃣ SONRA KULLANICIYA TEPKİ
     if (cevap === "Evet") {
         mesaj.innerText = "Kusura bakma 😔";
         mesaj.style.color = "red";
     }
 
     if (cevap === "Hayır") {
-        mesaj.innerText = "Evet... İstediğimiz noktaya geldik 🌹";
+        mesaj.innerText = "Bir şey göstereceğim 😏";
         mesaj.style.color = "green";
 
-        // YouTube embed (2. saniyede başla)
+        // ⚠️ mute=0 (bazı mobilde çalışmayabilir)
         video.src =
-            "https://www.youtube.com/embed/7CoP2F01FLA?start=2&autoplay=1&mute=0&enablejsapi=0";
+            "https://www.youtube.com/embed/7CoP2F01FLA?start=2&autoplay=1&mute=0&enablejsapi=1";
         video.style.display = "block";
 
-        // 8. saniyede durdur
+        // ⏱ 8. saniyede durdur
         setTimeout(() => {
             video.src = "";
             video.style.display = "none";
-        }, 6000); // 0 → 10 = 6 saniye
+        }, 6000);
     }
 
-    form.reset();
+    // 🧹 EN SON reset
+    setTimeout(() => {
+        form.reset();
+    }, 100);
 });
 </script>
 
