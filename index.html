@@ -148,14 +148,14 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
         // YouTube embed (2. saniyede başla)
         video.src =
-            "https://www.youtube.com/embed/7CoP2F01FLA?start=2&autoplay=1&mute=1&enablejsapi=1";
+            "https://www.youtube.com/embed/7CoP2F01FLA?start=2&autoplay=1&mute=1&enablejsapi=0";
         video.style.display = "block";
 
         // 8. saniyede durdur
         setTimeout(() => {
             video.src = "";
             video.style.display = "none";
-        }, 6000); // 1 → 10 = 6 saniye
+        }, 6000); // 0 → 10 = 6 saniye
     }
 
     form.reset();
