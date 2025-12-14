@@ -3,32 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <title>Deneme</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #c08081; /* gül kurusu */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .notice {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #c08081;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #a86667;
+        }
+
+        #mesaj {
+            margin-top: 15px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Ayhan gardaşımın yaşı kaç</h2>
+<div class="container">
 
-<form id="form">
+    <div class="notice">Bu bir denemedir</div>
 
-    <label>
-        <input type="radio" name="entry.823915493" value="32" required>
-        32
-    </label><br>
+    <h2>Ayhan gardaşımın yaşı kaç</h2>
 
-    <label>
-        <input type="radio" name="entry.823915493" value="23">
-        23
-    </label><br>
+    <form id="form">
 
-    <label>
-        <input type="radio" name="entry.823915493" value="Ahmet'in amına koyum">
-        Ahmet'in amına koyum
-    </label><br><br>
+        <label>
+            <input type="radio" name="entry.823915493" value="32" required>
+            32
+        </label>
 
-    <button type="submit">Gönder</button>
-</form>
+        <label>
+            <input type="radio" name="entry.823915493" value="23">
+            23
+        </label>
 
-<p id="mesaj"></p>
+        <label>
+            <input type="radio" name="entry.823915493" value="Ahmet'in amına koyum">
+            Ahmet'in amına koyum
+        </label>
+
+        <button type="submit">Gönder</button>
+    </form>
+
+    <p id="mesaj"></p>
+
+</div>
 
 <script>
 document.getElementById("form").addEventListener("submit", function(e) {
