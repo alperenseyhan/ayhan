@@ -52,7 +52,7 @@
         }
 
         button {
-            margin-top: 18px;
+            margin-top: 16px;
             padding: 12px;
             width: 100%;
             border: none;
@@ -61,6 +61,11 @@
             color: #fff;
             font-size: 16px;
             cursor: pointer;
+        }
+
+        #playBtn {
+            display: none;
+            background-color: #4CAF50;
         }
 
         #mesaj {
@@ -74,6 +79,7 @@
             height: 200px;
             border-radius: 10px;
             display: none;
+            border: none;
         }
     </style>
 </head>
@@ -92,14 +98,16 @@
         </label>
 
         <label>
-            <input type="radio" name="entry.433664903" value="HAYIR">
-            HAYIR
+            <input type="radio" name="entry.433664903" value="Hayır">
+            Hayır
         </label>
 
         <button type="submit">Gönder</button>
     </form>
 
     <p id="mesaj"></p>
+
+    <button id="playBtn">Videoyu Oynat 🔊</button>
 
     <iframe
         id="video"
@@ -129,24 +137,30 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
     const mesaj = document.getElementById("mesaj");
     const video = document.getElementById("video");
+    const playBtn = document.getElementById("playBtn");
 
     mesaj.innerText = "";
     video.style.display = "none";
     video.src = "";
+    playBtn.style.display = "none";
 
     if (cevap === "Evet") {
         mesaj.innerText = "Kusura bakma 😔";
         mesaj.style.color = "red";
     }
 
-    if (cevap === "HAYIR") {
-        mesaj.innerText = "Evet... İstediğimiz noktaya geldik 🌹";
+    if (cevap === "Hayır") {
+        mesaj.innerText = "Bir şey göstereceğim 😏";
         mesaj.style.color = "green";
 
-        // 🎬 1–9 sn | otomatik başlar | ses açık
-        video.src =
-            "https://www.youtube.com/embed/7CoP2F01FLA?start=1&end=8&autoplay=1&mute=0&playsinline=1";
-        video.style.display = "block";
+        playBtn.style.display = "block";
+
+        playBtn.onclick = () => {
+            video.src =
+            "https://www.youtube.com/embed/7CoP2F01FLA?start=2&end=6&autoplay=1&mute=0&playsinline=1";
+            video.style.display = "block";
+            playBtn.style.display = "none";
+        };
     }
 
     setTimeout(() => {
